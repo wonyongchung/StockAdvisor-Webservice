@@ -30,20 +30,20 @@ def stock_detail(request, word):
 
     if(word=="Google"):
 
-        dataset_train = pd.read_csv('media/Google/Google_Stock_Price_Train.csv')
+        dataset_train = pd.read_csv('webapp/media/Google/Google_Stock_Price_Train.csv')
         training_set = dataset_train.iloc[:, 1:2].values
         sc = MinMaxScaler(feature_range=(0, 1))
         training_set_scaled = sc.fit_transform(training_set)
 
-        json_file = open('media/Google/model_lstm_google.json', 'r')
+        json_file = open('webapp/media/Google/model_lstm_google.json', 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         loaded_model = model_from_json(loaded_model_json)
-        loaded_model.load_weights("media/Google/model_lstm_google.h5")
+        loaded_model.load_weights("webapp/media/Google/model_lstm_google.h5")
         print("Loaded model from disk")
         loaded_model.compile(loss='mean_squared_error', optimizer='adam')
 
-        dataset_test = pd.read_csv('media/Google/Google_Stock_Price_Test.csv')
+        dataset_test = pd.read_csv('webapp/media/Google/Google_Stock_Price_Test.csv')
         real_stock_price = dataset_test.iloc[:, 1:2].values
         dataset_total = pd.concat((dataset_train['Open'], dataset_test['Open']), axis=0)
         inputs = dataset_total[len(dataset_total) - len(dataset_test) - 60:].values
@@ -59,7 +59,7 @@ def stock_detail(request, word):
 
     else:
 
-        str = 'media/' + word + '/' + word + '.csv'
+        str = 'webapp/media/' + word + '/' + word + '.csv'
 
         dataset = pd.DataFrame(pd.read_csv(str))
 
@@ -84,8 +84,8 @@ def stock_detail(request, word):
 
         val_x = np.reshape(val_x, (val_x.shape[0], val_x.shape[1], 1))
 
-        str2 = 'media/' + word + '/' + word + '_model.json'
-        str3 = 'media/' + word + '/' + word + '_model.h5'
+        str2 = 'webapp/media/' + word + '/' + word + '_model.json'
+        str3 = 'webapp/media/' + word + '/' + word + '_model.h5'
         json_file = open(str2, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
