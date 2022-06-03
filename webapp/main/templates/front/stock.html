@@ -26,7 +26,7 @@
           <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-4">
               <h3 class="h3 mb-4 text-black">For the next great business</h3>
-              <p>Try checking predictions of any of these copanies and Invest smartly with us.</p>
+              <p>Try checking predictions of any of these companies and Invest smartly with us.</p>
 
             </div>
 
@@ -34,10 +34,24 @@
 
             <div class="mb-4">
               <ul class="list-unstyled ul-check success">
-                {% for i in allstocks %}
-                    {% comment %} <li><a href="{% url 'stock_detail' word=i.name %}">{{i.name}}</a> </li> {% endcomment %}
-                    <li><a href="{% url 'stock_detail' word=i %}">{{i}}</a> </li>    {% comment %} 리스트 한줄씩 추가 {% endcomment %}
-                {% endfor %}
+
+              <form id="make_checkbox_select">
+                <select class="custom-select" id="inputGroupSelect01">
+                  {% for x in allstocks %}
+                     <option value="{{ x }}">
+                            {{ x }}
+                     </option>
+                  {% endfor %}
+                </select>
+               
+                <input type="submit" />               
+              </form>
+
+
+                {% comment %} {% for i in allstocks %}
+                     <li><a href="{% url 'stock_detail' word=i.name %}">{{i.name}}</a> </li>
+                     <li><a href="{% url 'stock_detail' word=i %}">{{i}}</a> </li>    리스트 한줄씩 추가 
+                {% endfor %}{% endcomment %}
               </ul>
 
             </div>
