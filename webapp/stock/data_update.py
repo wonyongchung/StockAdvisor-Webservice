@@ -13,7 +13,7 @@ time_start_str = time_start.strftime(format='%Y%m%d')
 data_dir = os.path.join("..", 'media')
 
 # 전체 주식 시가총액 불러오기
-market_cap = stock.get_market_cap(time_now_str, market='KOSPI')  #시가총액 순으로 정렬된 dataframe 반환
+market_cap = stock.get_market_cap(date=time_now_str, prev=True,  market='KOSPI')  #시가총액 순으로 정렬된 dataframe 반환
 market_cap['종목이름'] = [stock.get_market_ticker_name(tk) for tk in market_cap.index]
 market_cap = market_cap[:50]
 # ticker로 5년간 데이터 불러오기
