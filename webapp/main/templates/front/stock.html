@@ -35,7 +35,8 @@
             <div class="mb-4">
               <ul class="list-unstyled ul-check success">
                 {% for i in allstocks %}
-                    <li><a href="{% url 'stock_detail' word=i.name %}">{{i.name}}</a> </li>
+                    {% comment %} <li><a href="{% url 'stock_detail' word=i.name %}">{{i.name}}</a> </li> {% endcomment %}
+                    <li><a href="{% url 'stock_detail' word=i %}">{{i}}</a> </li>    {% comment %} 리스트 한줄씩 추가 {% endcomment %}
                 {% endfor %}
               </ul>
 
