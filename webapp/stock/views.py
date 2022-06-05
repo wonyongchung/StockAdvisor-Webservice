@@ -15,6 +15,7 @@ def stock(request):
     # allstocks = Stock.objects.all()         #주식 데이터베이스 전부 -> csv로 변경 필요
     # print(os.getcwd())
     allstocks = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=0)
+    allstocks = allstocks.sort_index()
     return render(request, 'front/stock.html', {'site': site, 'allstocks': allstocks.index})
 
 

@@ -1,15 +1,22 @@
 {% extends 'front/master.html' %}
 {% load static %}
-
+<style>
+  .container{
+    height: 100vh;
+    width: 100vh;
+    background-image : url("https://www.ito.or.kr/images/bbs/galleryko/2021/yeonsugu_gyeongwonjae_(2).jpg");
+    background-size: cover;
+}
+  </style>
 {% block headblock %}
 
         <title>STOCK ADVISOR | Stock</title>
+        
         <meta charset="utf-8">
 
 {% endblock %}
 
 {% block mainblock %}
-
     <div class="site-section cta-big-image" id="about-section">
       <div class="container">
         <div class="row mb-5">
@@ -18,37 +25,38 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-            <figure class="circle-bg">
-            <img src="{% static 'front/images/hero_1.jpg' %}" alt="Image" class="img-fluid">
-            </figure>
+          <div class="col-lg-3 mb-5" data-aos="fade-up" data-aos-delay="">
+            <!-- TradingView Widget BEGIN -->
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_d1a34"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/KRX-KOSPI200/" rel="noopener" target="_blank"><span class="blue-text">KOSPI200 Chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+  new TradingView.widget(
+  {
+  "width": 600,
+  "height": 300,
+  "symbol": "KRX:KOSPI200",
+  "interval": "D",
+  "timezone": "Etc/UTC",
+  "theme": "light",
+  "style": "2",
+  "locale": "en",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "hide_top_toolbar": true,
+  "allow_symbol_change": true,
+  "save_image": false,
+  "container_id": "tradingview_d1a34"
+}
+  );
+  </script>
+</div>
           </div>
           <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-4">
-              <h3 class="h3 mb-4 text-black">원하는 기업을 선택하세요</h3>
-              <p>최고의 주식 투자를 위하여~~!</p>
-
-            </div>
-
-
-
-            <div class="mb-4">
-              <ul class="list-unstyled ul-check success">
-
-                <!-- <nav>
-                
-                  <label for="touch"><span>titre</span></label>               
-                  <input type="checkbox" id="touch"> 
-                
-                  <ul class="custom-select">
-                    <li><a href="#">제</a></li> 
-                    <li><a href="#">발</a></li>
-                    <li><a href="#">제</a></li>
-                    <li><a href="#">발</a></li>
-                  </ul>
-                
-                </nav>  -->
-              
+              <ul class="list-unstyled ul-check success">              
               <form id="make_checkbox_select">
                 <select class="custom-select" id="inputGroupSelect01">
                   {% for x in allstocks %}
@@ -59,8 +67,12 @@
                   {% endfor %}
                 </select>
                
-                <a class='btn btn--blue'>제출을 위해선 여기를 눌러주세요</a>
-                <input type='submit' class='btn btn--blue' value='Click Me' />            
+                <!-- <a class='btn btn--blue'>Search</a> -->
+                <!-- <input type='submit' class='button-4' value='Submit' />      -->
+                <div input type='submit' class="button-4">
+                  <div class="eff-4"></div>
+                  <a href="#"> Submit </a>
+                </div>       
               </form>
 
 

@@ -16,6 +16,7 @@ body {
   background: #000;
   color: #fff; }
 
+
 a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
@@ -63,6 +64,128 @@ body:after {
 /* CSS초기화를 위한 reset CSS 정도는 추가해주고 시작! */
 @import "reset.css";
 
+.intro{
+  width:100%;
+  height:30px;
+}
+.intro h1{
+  font-family:'Oswald', sans-serif;
+  letter-spacing:2px;
+  font-weight:normal;
+  font-size:14px;
+  color:#222;
+  text-align:center;
+  margin-top:10px;
+}
+.intro a{
+  color:#e74c3c;
+  font-weight:bold;
+  letter-spacing:0;
+}
+.intro img{
+  width:20px;
+  heght:20px;
+  margin-left:5px;
+  margin-right:5px;
+  position:relative;
+  top:5px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}
+#container{
+  width:715px;
+  height:230px;
+  margin:50px auto;
+}
+
+.button-4{
+  width:136px;
+  height:50px;
+  border:2px solid #34495e;
+  float:left;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:10px 0 40px 150px;
+}
+.button-4 a{
+  font-family:arial;
+  font-size:16px;
+  color:#34495e;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+.eff-4{
+  width:140px;
+  height:55px;
+  left:-140px;
+  background:#34495e;
+  position:absolute;
+  transition:all .4s ease;
+  z-index:0;
+}
+.button-4:hover .eff-4{
+  left:0;
+}
+.button-4:hover a{
+  color:#fff;
+}
+
+h1{
+  font-family: 'Oswald', sans-serif;
+  font-weight:normal;
+  font-size:24px;
+  color:#34495e;
+  text-align:center;
+  margin:0 auto 40px 0;
+}
+
+/* h1:first-letter{
+  color:#e74c3c;
+  border-bottom:1px solid #e74c3c;
+} */
+footer{
+  position:absolute;
+  width:100%;
+  height:30px;
+  border-top:1px solid #34495e;
+  bottom:0;
+  display:none;
+}
+footer h1{
+  font-family: 'Oswald', sans-serif;
+  font-weight:normal;
+  font-size:14px;
+  color:#34495e;
+  text-align:left;
+  margin-left:5%;
+}
+footer a{
+  font-family: 'Oswald', sans-serif;
+  font-weight:normal;
+  font-size:14px;
+  color:#34495e;
+}
+#credits{
+  position:absolute;
+  width:100%;
+  margin: auto;
+  bottom:0;
+  margin-bottom:20px;
+  font-family:'Open Sans', sans-serif;
+  color:#b297a2;
+  font-size:10px;
+  text-transform: uppercase;
+  text-align : center;
+}
+#credits a {
+  color:#b297a2;
+}
 .btn {
     /* 필수적으로 입력해 주어야 하는 속성 */
     vertical-align: middle; /* Input 과 타 요소들의 텍스트 높이를 동일하게 세로 정렬한다 */
@@ -71,7 +194,7 @@ body:after {
     cursor: pointer; /* input type에 따라 커서의 모양이 다르다. */
     
     /* 패딩은 Input과 다른 태그들이 달라야 한다 */
-    padding: 80px 12px;
+    padding: 1px 2px;
 
     /* 디자인 요소들 */
     transition: all 0.3s;
@@ -92,7 +215,7 @@ input.btn {
 .btn--blue {
     border-color: rgb(247, 242, 241);
     background: rgb(242, 242, 246);
-    color: white;
+    color: blue;
 }
 .btn--blue:hover {
     background: rgb(242, 242, 245);
