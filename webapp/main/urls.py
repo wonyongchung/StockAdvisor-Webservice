@@ -3,7 +3,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
+urlpatterns = [                 #동일 폴더 내 views에서 html 연결
 
     path(r'', views.home, name='home'),
     path(r'consult/', views.consult, name='consult'),

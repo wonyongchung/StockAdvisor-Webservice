@@ -75,6 +75,55 @@
                 </div>       
               </form>
 
+              {% comment %} Submit 연결 {% endcomment %}
+              <form action="'stock_detail' word=x" id="make_checkbox_select">
+                <select class="custom-select" id="inputGroupSelect01">
+                  {% for x in allstocks %}
+                     <!-- <option value="{{ x }}">
+                            {{ x }}
+                     </option> -->
+                     <li><a href="#"><option value="{{ x }}">{{ x }}</a></li>
+                  {% endfor %}
+                </select>
+               
+                {% comment %} <a class='btn btn--blue'>제출을 위해선 여기를 눌러주세요</a> {% endcomment %}
+                <input type='submit' class='btn btn--blue' value='Click Me' />            
+              </form>
+
+
+
+              {% comment %} <form action="{% url 'stock_detail_dj'%}" method="POST"> {% endcomment %}
+              <form action="/stock_detail_dj" method="POST">
+                {% csrf_token %}
+                    <div style="display: flex; align-items: center; width:320px; margin-bottom:20px;">
+                            <span style="font-size:16px;color:#555555;">옵션</span>
+                            <select name="stockname" class="form-select" aria-label="Default select example" style="margin-left:20px; width:260px;">
+                                {% for x in allstocks %}
+                                    <option value="{{x}}">{{x}}</option>
+                                {% endfor %}
+                            </select>
+    
+                    </div>
+
+    
+                <!--   수량   -->
+                    <div id="mainDiv" style="display: flex; align-items: center; margin-bottom:25px; margin-top:20px; font-size:16px;color:#555555;">
+                        수량 선택 <input type="number" name="quantity" style="width:70px; margin-left:20px;" min="1" id="numberPlace" class="form-control qty-input text-center">
+                    </div>
+                <!--   수량  끝 -->
+    
+                <button type="submit" class="btn btn-outline-secondary" style="margin-right:5px;">Add To Cart</button>
+                </form>
+                
+             <script>
+        document.getElementById('numberPlace').value = '1';
+            </script>
+
+            
+
+
+
+
 
                 {% comment %} {% for i in allstocks %}
                      <li><a href="{% url 'stock_detail' word=i.name %}">{{i.name}}</a> </li>
