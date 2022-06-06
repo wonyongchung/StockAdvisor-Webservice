@@ -20,7 +20,8 @@ def stock(request):
     allstocks = []
     rootdir = os.path.join('webapp', 'media')
     allstocks =  glob.glob(f'{rootdir}/*/')
-    allstocks = [company.split('/')[-2] for company in allstocks]
+    # allstocks = [company.split('/')[-2] for company in allstocks]
+    allstocks = [os.path.split(os.path.split(company)[0])[-1] for company in allstocks]
     allstocks.sort()
     return render(request, 'front/stock.html', {'site': site, 'allstocks': allstocks})
 
