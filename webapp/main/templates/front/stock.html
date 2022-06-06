@@ -24,6 +24,121 @@
             <h2 class="section-title mb-3">Stock Price Predictions</h2>
           </div>
         </div>
+
+
+        <div class="container">
+          <div class="row">
+          <div class="col-xs-6">
+            <h2 style="font-size: 20px; margin-left: 120px;">stocks predicted to <span style="color:#FF0000">soar</span> in a month</h2>
+          </div>
+          <div class="col-xs-6">
+            <h2 style="font-size: 20px; margin-left: 200px;">stocks predicted to <span style="color:#0015ff">crash</span> in a month</h2>
+          </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-xs-6">
+              <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 50px; width: 540px;">
+                <thead>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <th>Ranking</th>
+                    <th>Company</th>
+                    <th>Surge Rate <span style="font-size: 12px;">(%)</span> </th>
+                    <th>Current price <span style="font-size: 12px;">(KRW)</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>1</td>
+                    <td>LG</td>
+                    <td>
+                      <!-- <tr>45 <div class="triangle" style="vertical-align: baseline;"></div></tr> -->
+                      45 <img class="triangle" style="vertical-align: baseline;"></img>
+                      </td>
+                    <td>31000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>2</td>
+                    <td>삼성전자</td>
+                    <td>32 <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>81000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>3</td>
+                    <td>현대자동차</td>
+                    <td>27 <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>160000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>4</td>
+                    <td>SK하이닉스</td>
+                    <td>25 <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>91000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>5</td>
+                    <td>카카오</td>
+                    <td>16 <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>110000</td>
+                  </tr>
+                </tbody>
+                
+              </table>
+            </div>
+            <div class="col-xs-6" style="margin-left: 30px;">
+              <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 50px; width: 540px;">
+                <thead>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <th>Ranking</th>
+                    <th>Company</th>
+                    <th>Surge Rate <span style="font-size: 12px;">(%)</span> </th>
+                    <th>Current price <span style="font-size: 12px;">(KRW)</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>1</td>
+                    <td>LG</td>
+                    <td>
+                      <!-- <tr>45 <div class="triangle" style="vertical-align: baseline;"></div></tr> -->
+                      45 <img class="triangle-down" style="vertical-align: baseline;"></img>
+                      </td>
+                    <td>31000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>2</td>
+                    <td>삼성전자</td>
+                    <td>32 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>81000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>3</td>
+                    <td>현대자동차</td>
+                    <td>27 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>160000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>4</td>
+                    <td>SK하이닉스</td>
+                    <td>25 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>91000</td>
+                  </tr>
+                  <tr style="vertical-align: center; text-align: center;">
+                    <td>5</td>
+                    <td>카카오</td>
+                    <td>16 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>110000</td>
+                  </tr>
+                </tbody>
+                
+              </table>
+            </div>
+          </div>
+          
+          
+        </div>
+
+
         <div class="row">
           <div class="col-lg-3 mb-5" data-aos="fade-up" data-aos-delay="">
             <!-- TradingView Widget BEGIN -->
@@ -57,47 +172,16 @@
           <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-4">
               <ul class="list-unstyled ul-check success">              
-              <form id="make_checkbox_select">
-                <select class="custom-select" id="inputGroupSelect01">
-                  {% for x in allstocks %}
-                     <!-- <option value="{{ x }}">
-                            {{ x }}
-                     </option> -->
-                     <li><a href="#"><option value="{{ x }}">{{ x }}</a></li>
-                  {% endfor %}
-                </select>
-               
-                <!-- <a class='btn btn--blue'>Search</a> -->
-                <!-- <input type='submit' class='button-4' value='Submit' />      -->
-                <div input type='submit' class="button-4">
-                  <div class="eff-4"></div>
-                  <a href="#"> Submit </a>
-                </div>       
-              </form>
-
-              {% comment %} Submit 연결 {% endcomment %}
-              <form action="'stock_detail' word=x" id="make_checkbox_select">
-                <select class="custom-select" id="inputGroupSelect01">
-                  {% for x in allstocks %}
-                     <!-- <option value="{{ x }}">
-                            {{ x }}
-                     </option> -->
-                     <li><a href="#"><option value="{{ x }}">{{ x }}</a></li>
-                  {% endfor %}
-                </select>
-               
-                {% comment %} <a class='btn btn--blue'>제출을 위해선 여기를 눌러주세요</a> {% endcomment %}
-                <input type='submit' class='btn btn--blue' value='Click Me' />            
-              </form>
+              
 
 
 
               {% comment %} <form action="{% url 'stock_detail_dj'%}" method="POST"> {% endcomment %}
               <form action="/stock_detail_dj" method="POST">
                 {% csrf_token %}
-                    <div style="display: flex; align-items: center; width:320px; margin-bottom:20px;">
-                            <span style="font-size:16px;color:#555555;">옵션</span>
-                            <select name="stockname" class="form-select" aria-label="Default select example" style="margin-left:20px; width:260px;">
+                    <div style="display: flex; align-items: center; width:700px; margin-bottom:20px; margin-top: 50px;">
+                            <span style="font-size:16px;color:#555555;">Select company</span>
+                            <select name="stockname" class="custom-select" id="inputGroupSelect01" aria-label="Default select example" style="margin-left:20px; width:190px;">
                                 {% for x in allstocks %}
                                     <option value="{{x}}">{{x}}</option>
                                 {% endfor %}
@@ -108,11 +192,11 @@
     
                 <!--   수량   -->
                     <div id="mainDiv" style="display: flex; align-items: center; margin-bottom:25px; margin-top:20px; font-size:16px;color:#555555;">
-                        수량 선택 <input type="number" name="quantity" style="width:70px; margin-left:20px;" min="1" id="numberPlace" class="form-control qty-input text-center">
+                      Select predict period <input type="number" name="quantity" style="width:70px; margin-left:50px;" max = "100" min="1" id="numberPlace" class="form-control qty-input text-center">
                     </div>
                 <!--   수량  끝 -->
     
-                <button type="submit" class="btn btn-outline-secondary" style="margin-right:5px;">Add To Cart</button>
+                <button class="button button1">Submit</button>
                 </form>
                 
              <script>
