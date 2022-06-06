@@ -780,7 +780,9 @@ input.btn {
   .sticky-wrapper .shrink {
     padding-top: 10px !important;
     padding-bottom: 10px !important; }
-
+.h33{
+  margin: 0 auto;
+}
 /* Blocks */
 .site-blocks-cover {
   background-size: cover;
