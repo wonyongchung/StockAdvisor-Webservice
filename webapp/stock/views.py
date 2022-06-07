@@ -5,16 +5,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import os, glob
-from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import model_from_json
+from sklearn.ensemble import RandomForestRegressor
 
+def MinMaxScaler(data):
+    denom = np.max(data,0)-np.min(data,0)            # np.min(data,0) 이었는데 - 값이 있어서 0이 더 작은 값으로 되서 0으로 나누는 경우 에러
+    nume = data-np.min(data,0)
+    return nume/denom
 
 def stock(request):
-
     site = Main.objects.get(pk=2)
     # allstocks = Stock.objects.all()         #주식 데이터베이스 전부 -> csv로 변경 필요
     # print(os.getcwd())
-    import os
+    # allstocks = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=0)
     #media 폴더 내에 저장되어 있는 회사폴더명 불러와서 정렬 후 list로 반환
     allstocks = []
     rootdir = os.path.join('webapp', 'media')
@@ -24,218 +27,51 @@ def stock(request):
     allstocks.sort()
     return render(request, 'front/stock.html', {'site': site, 'allstocks': allstocks})
 
-
-def stock_detail(request, word):
-
-    print(word)
-    real_stock_price = 0
-    predicted_stock_price = 0
-
-    TIME_STEP = 7
-    DAYS = 20
-
-    if(word=="Tesla"):
-        TIME_STEP=5
-
-
-    if(word=="Google"):
-
-        dataset_train = pd.read_csv('webapp/media/Google/Google_Stock_Price_Train.csv')
-        training_set = dataset_train.iloc[:, 1:2].values
-        sc = MinMaxScaler(feature_range=(0, 1))
-        training_set_scaled = sc.fit_transform(training_set)
-
-        json_file = open('webapp/media/Google/model_lstm_google.json', 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
-        loaded_model = model_from_json(loaded_model_json)
-        loaded_model.load_weights("webapp/media/Google/model_lstm_google.h5")
-        print("Loaded model from disk")
-        loaded_model.compile(loss='mean_squared_error', optimizer='adam')
-
-        dataset_test = pd.read_csv('webapp/media/Google/Google_Stock_Price_Test.csv')
-        real_stock_price = dataset_test.iloc[:, 1:2].values
-        dataset_total = pd.concat((dataset_train['Open'], dataset_test['Open']), axis=0)
-        inputs = dataset_total[len(dataset_total) - len(dataset_test) - 60:].values
-        inputs = inputs.reshape(-1, 1)
-        inputs = sc.transform(inputs)
-        X_test = []
-        for i in range(60, 80):
-            X_test.append(inputs[i - 60:i, 0])
-        X_test = np.array(X_test)
-        X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
-        predicted_stock_price = loaded_model.predict(X_test)
-        predicted_stock_price = sc.inverse_transform(predicted_stock_price)
-
-    else:
-
-        str = 'webapp/media/' + word + '/' + word + '.csv'
-
-        dataset = pd.DataFrame(pd.read_csv(str))
-
-        dataset.drop(["Date", "High", "Low", "Close", "Volume", "Adj Close"], axis=1, inplace=True)
-        dataset = dataset.values
-
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        dataset_scaled = scaler.fit_transform(dataset)
-
-        def dataset_split(dataset):
-            train = dataset[0: len(dataset) - DAYS]
-            val = dataset[len(dataset) - DAYS - TIME_STEP: len(dataset)]
-            return train, val
-
-        train, val = dataset_split(dataset_scaled)
-
-        val_x, val_y = [], []
-        for i in range(TIME_STEP, val.shape[0]):
-            val_x.append(val[i - TIME_STEP: i, 0])
-            val_y.append(val[i, 0])
-        val_x, val_y = np.array(val_x), np.array(val_y)
-
-        val_x = np.reshape(val_x, (val_x.shape[0], val_x.shape[1], 1))
-
-        str2 = 'webapp/media/' + word + '/' + word + '_model.json'
-        str3 = 'webapp/media/' + word + '/' + word + '_model.h5'
-        json_file = open(str2, 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
-        loaded_model = model_from_json(loaded_model_json)
-        loaded_model.load_weights(str3)
-        print("Loaded model from disk")
-        loaded_model.compile(loss='mean_squared_error', optimizer='adam')
-
-        real_prices = val[TIME_STEP:]
-        real_prices = scaler.inverse_transform(real_prices)
-        real_stock_price=real_prices
-
-        predicted_prices = loaded_model.predict(val_x)
-        predicted_prices = scaler.inverse_transform(predicted_prices)
-        predicted_stock_price=predicted_prices
-
-    df1 = pd.DataFrame(real_stock_price)
-    df2 = pd.DataFrame(predicted_stock_price)
-    df3 = pd.DataFrame(range(0, 20, 1))
-    df4 = pd.concat([df3, df1, df2], axis=1)
-    df = df4.values.tolist()
-
-    ratio = -1
-    it = 0
-    dt = 0
-    n = len(predicted_stock_price)
-    for i in range(n):
-        for j in range(i + 1, n):
-            if ((predicted_stock_price[j] / predicted_stock_price[i]) > ratio):
-                ratio = predicted_stock_price[j] / predicted_stock_price[i]
-                it = i
-                dt = j
-    ratio=int(ratio*10000)
-    site = Main.objects.get(pk=2)
-    showstock = Stock.objects.filter(name=word)
-    return render(request, 'front/stock_detail.html', {'site': site, 'showstock': showstock, 'df':df, 'ratio':ratio, 'it':it, 'dt':dt})
-
-
-    
-    
-#views.py
-
 def stock_detail_dj(request):
     if request.method == 'POST':
         word = request.POST.get('stockname')
-        
-        
-        
-        print(word)
-        real_stock_price = 0
         predicted_stock_price = 0
 
-        TIME_STEP = 7
-        DAYS = 20
+        df = pd.read_csv('webapp/media/{}/{}.csv'.format(word, word), encoding='cp949')
 
-        if(word=="Tesla"):
-            TIME_STEP=5
+        xy = df.iloc[:,1:5].values       
+        window = 7                     
+        trainSize = int(len(df)*0.8)  
+        print("훈련 사이즈는~?", trainSize)                  
+        print("첫번째 행 잘 뽑히나 보자", xy[0])
+        trainSet = MinMaxScaler(xy[0:trainSize])
+        testSet = MinMaxScaler(xy[trainSize-window:])             # trainsize - windowsize 부터 끝까지 test
 
+        predict_day = 1
 
-        if(word=="Google"):
+        def buildDataSet(data, window):
+            xdata = []
+            ydata = []
+            for i in range(0, len(data) - window - predict_day):
+                xdata.append(data[i:i + window])                           # 행은 10개씩, 열은 직전의 Number 값들도 같이 입력변수로 넣어준다
+                ydata.append(data[i + window + predict_day - 1,[-1]])                   # 행은 그 다음 행 하나랑, 열은 Number만
+            return np.array(xdata), np.array(ydata)
 
-            dataset_train = pd.read_csv('webapp/media/Google/Google_Stock_Price_Train.csv')
-            training_set = dataset_train.iloc[:, 1:2].values
-            sc = MinMaxScaler(feature_range=(0, 1))
-            training_set_scaled = sc.fit_transform(training_set)
+        X_train, y_train=buildDataSet(trainSet, window)
+        X_test, y_test=buildDataSet(testSet, window)
 
-            json_file = open('webapp/media/Google/model_lstm_google.json', 'r')
-            loaded_model_json = json_file.read()
-            json_file.close()
-            loaded_model = model_from_json(loaded_model_json)
-            loaded_model.load_weights("webapp/media/Google/model_lstm_google.h5")
-            print("Loaded model from disk")
-            loaded_model.compile(loss='mean_squared_error', optimizer='adam')
+        # RF는 2차원 데이터를 입력으로 받아서 1차원으로 바꿔줘야한다.
+        X_train = X_train.reshape(X_train.shape[0],7*4)
+        X_test = X_test.reshape(X_test.shape[0],7*4)
+        y_train = y_train.reshape(X_train.shape[0],)
+        y_test = y_test.reshape(X_test.shape[0],)
 
-            dataset_test = pd.read_csv('webapp/media/Google/Google_Stock_Price_Test.csv')
-            real_stock_price = dataset_test.iloc[:, 1:2].values
-            dataset_total = pd.concat((dataset_train['Open'], dataset_test['Open']), axis=0)
-            inputs = dataset_total[len(dataset_total) - len(dataset_test) - 60:].values
-            inputs = inputs.reshape(-1, 1)
-            inputs = sc.transform(inputs)
-            X_test = []
-            for i in range(60, 80):
-                X_test.append(inputs[i - 60:i, 0])
-            X_test = np.array(X_test)
-            X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
-            predicted_stock_price = loaded_model.predict(X_test)
-            predicted_stock_price = sc.inverse_transform(predicted_stock_price)
+        model = RandomForestRegressor()
+        print("훈련 : ", X_train.shape, y_train.shape)
+        model.fit(X_train,y_train)
 
-        else:
+        predicted_stock_price = model.predict(X_test)
+        print("예측된 결과는 : ", predicted_stock_price.shape)
+        print("원본 테스트 크기 :", y_test.shape)
 
-            str = 'webapp/media/' + word + '/' + word + '.csv'
-            
-            # dataset = pd.DataFrame(pd.read_csv(str, encoding='cp949'))
-            dataset = pd.read_csv(str, encoding='cp949')
-
-            
-            # dataset.drop(["Date", "High", "Low", "Close", "Volume", "Adj Close"], axis=1, inplace=True)
-            dataset.drop(["날짜","고가","저가","종가","거래량"], axis=1, inplace=True)
-            dataset = dataset.values
-            print(dataset)
-            scaler = MinMaxScaler(feature_range=(0, 1))
-            dataset_scaled = scaler.fit_transform(dataset)
-
-            def dataset_split(dataset):
-                train = dataset[0: len(dataset) - DAYS]
-                val = dataset[len(dataset) - DAYS - TIME_STEP: len(dataset)]
-                return train, val
-
-            train, val = dataset_split(dataset_scaled)
-
-            val_x, val_y = [], []
-            for i in range(TIME_STEP, val.shape[0]):
-                val_x.append(val[i - TIME_STEP: i, 0])
-                val_y.append(val[i, 0])
-            val_x, val_y = np.array(val_x), np.array(val_y)
-
-            val_x = np.reshape(val_x, (val_x.shape[0], val_x.shape[1], 1))
-
-            temp_word = "AMD"
-            str2 = 'webapp/media/' + temp_word + '/' + temp_word + '_model.json'
-            str3 = 'webapp/media/' + temp_word + '/' + temp_word + '_model.h5'
-            json_file = open(str2, 'r')
-            loaded_model_json = json_file.read()
-            json_file.close()
-            loaded_model = model_from_json(loaded_model_json)
-            loaded_model.load_weights(str3)
-            print("Loaded model from disk")
-            loaded_model.compile(loss='mean_squared_error', optimizer='adam')
-
-            real_prices = val[TIME_STEP:]
-            real_prices = scaler.inverse_transform(real_prices)
-            real_stock_price=real_prices
-
-            predicted_prices = loaded_model.predict(val_x)
-            predicted_prices = scaler.inverse_transform(predicted_prices)
-            predicted_stock_price=predicted_prices
-
-        df1 = pd.DataFrame(real_stock_price)
+        df1 = pd.DataFrame(y_test)
         df2 = pd.DataFrame(predicted_stock_price)
-        df3 = pd.DataFrame(range(0, 20, 1))
+        df3 = pd.DataFrame(range(0, predicted_stock_price.shape[0], 1))
         df4 = pd.concat([df3, df1, df2], axis=1)
         df = df4.values.tolist()
 
@@ -250,10 +86,7 @@ def stock_detail_dj(request):
                     it = i
                     dt = j
         ratio=int(ratio*10000)
-        
-        
-        
-        # site = Main.objects.get(pk=2)
+
         showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=0).loc[word]
         showstock.loc['종목코드'] = format(showstock['종목코드'].copy(), '06')
         print(showstock)
