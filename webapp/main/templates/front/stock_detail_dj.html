@@ -4,7 +4,7 @@
 {% block headblock %}
 
     {% for i in showstock %}
-    <title>STOCK ADVISOR | {{ i.name }}</title>
+    <title>STOCK ADVISOR | {{ i.name }}</title> 
     {% endfor %}
     <meta charset="utf-8">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -62,25 +62,105 @@
 
 {% block mainblock %}
 
-    {% for i in showstock %}
-    <div class="site-section cta-big-image" id="about-section">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-12 text-center" data-aos="fade">
-            <h2 class="section-title mb-3">Prediction of {{ i.name }} Stock Price</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
+<div class="site-section cta-big-image" id="about-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12 text-center" data-aos="fade">
+        <h2 class="section-title mb-3">Prediction of {{ showstock.name }} Stock Price</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="site-section cta-big-image" id="about-section">
+  <div class="row">
+    <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
+      
+      <div id="chart_div" style="width: 650px; height: 400px"></div>
+      <!-- <img src="{{i.picurl}}" alt="Image" class="img-fluid"> -->
+      
+    </div>
+    <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
+      <div class="mb-4">
+        <h3 class="h3 mb-4 text-black">For the next great business</h3>
 
-            <div id="chart_div" style="width: 650px; height: 400px"></div>
-            <!-- <img src="{{i.picurl}}" alt="Image" class="img-fluid"> -->
+        <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 70px; width: 540px;">
+          <thead>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>Ranking</th>
+              <th>Company</th>
+              <th>Surge Rate <span style="font-size: 12px;">(%)</span> </th>
+              <th>Current price <span style="font-size: 12px;">(KRW)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="vertical-align: center; text-align: center;">
+              <td>1</td>
+              <td>LG</td>
+              <td>
+                <!-- <tr>45 <div class="triangle" style="vertical-align: baseline;"></div></tr> -->
+                45 <img class="triangle" style="vertical-align: baseline;"></img>
+                </td>
+              <td>31000</td>
+            </tr>
+          </tbody>
+          
+        </table>
+        
+        
+        
+        <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 70px; width: 540px;">
+          {% comment %} <thead>
+            <td style="vertical-align: center; text-align: center;">
+              <th>Ranking</th>
+              <th>Company</th>
+              <th>Surge Rate <span style="font-size: 12px;">(%)</span> </th>
+              <th>Current price <span style="font-size: 12px;">(KRW)</span></th>
+            </td>
+          </thead> {% endcomment %}
+          <tbody>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>종목 코드</th>
+              <td>{{ showstock.0 }}</td>
+            </tr>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>업종</th>
+              <td>{{ showstock.1 }}</td>
+            </tr>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>주요 제품</th>
+              <td>{{ showstock.2 }}</td>
+            </tr>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>상장일</th>
+              <td>{{ showstock.3 }}</td>
+            </tr>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>결산월</th>
+              <td>{{ showstock.4 }}</td>
+            </tr>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>대표자명</th>
+              <td>{{ showstock.5 }}</td>
+            </tr>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>홈페이지</th>
+              <a href="#" onclick="">{{ showstock.6 }}</a>
+            </tr>
+            <tr style="vertical-align: center; text-align: center;">
+              <th>지역</th>
+              <td>{{ showstock.7 }}</td>
+            </tr>
+          </tbody>
+          
+        </table>
 
-          </div>
-          <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
-            <div class="mb-4">
-              <h3 class="h3 mb-4 text-black">For the next great business</h3>
-              <p>{{i.txt}}</p>
+
+
+
+
+        {% for i in showstock %}
+          <p>{{i}}</p>
+        {% endfor %}
 
             </div>
 
@@ -100,7 +180,5 @@
           </div>
         </div>
       </div>
-    </div>
 
-{% endfor %}
 {% endblock %}

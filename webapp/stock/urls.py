@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     path(r'stock/', views.stock, name='stock'),
-    path(r'stock/(?P<word>)/', views.stock_detail, name='stock_detail'),
     path(r'stock_detail_dj', views.stock_detail_dj, name='stock_detail_dj'),
 
 ]
