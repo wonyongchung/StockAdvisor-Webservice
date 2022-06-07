@@ -110,15 +110,10 @@ def stock_detail_dj(request):
                     dt = j
         ratio=int(ratio*10000)
 
-<<<<<<< Updated upstream
         showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=1)
         showstock.index = [format(code, '06') for code in showstock.index]
         showstock = showstock.loc[word]
         # .loc[word]
         # showstock.loc['종목코드'] = format(showstock['종목코드'].copy(), '06')
         print(showstock)
-=======
-        showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=0).loc[word]
-        showstock.loc['종목코드'] = format(showstock['종목코드'].copy(), '06')
->>>>>>> Stashed changes
         return render(request, 'front/stock_detail_dj.html', {'showstock': showstock, 'df':df, 'ratio':ratio, 'it':it, 'dt':dt})
