@@ -14,7 +14,6 @@ def stock(request):
     site = Main.objects.get(pk=2)
     # allstocks = Stock.objects.all()         #주식 데이터베이스 전부 -> csv로 변경 필요
     # print(os.getcwd())
-    # allstocks = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=0)
     import os
     #media 폴더 내에 저장되어 있는 회사폴더명 불러와서 정렬 후 list로 반환
     allstocks = []
@@ -254,6 +253,8 @@ def stock_detail_dj(request):
         
         
         
-        site = Main.objects.get(pk=2)
-        showstock = Stock.objects.filter(name=word)
-        return render(request, 'front/stock_detail_dj.html', {'site': site, 'showstock': showstock, 'df':df, 'ratio':ratio, 'it':it, 'dt':dt})
+        # site = Main.objects.get(pk=2)
+        showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=0).loc[word]
+        showstock.loc['종목코드'] = format(showstock['종목코드'].copy(), '06')
+        print(showstock)
+        return render(request, 'front/stock_detail_dj.html', {'showstock': showstock, 'df':df, 'ratio':ratio, 'it':it, 'dt':dt})
