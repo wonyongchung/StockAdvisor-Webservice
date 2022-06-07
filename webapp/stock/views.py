@@ -62,6 +62,8 @@ def stock_detail_dj(request):
         model.fit(X_train,y_train)
 
         predicted_stock_price = model.predict(X_test)[:,-1]  # 예측할 때는 맨 마지막 종가 예측 결과만 출력해준다
+        print(df.iloc[-past:,-1])
+        print("가자아아아ㅏ앙", df.iloc[-past:,-1])
         predicted_stock_price = back_MinMax(df.iloc[-past:,-1], predicted_stock_price)
         
         print("예측된 결과는 : ", predicted_stock_price.shape)
@@ -69,7 +71,6 @@ def stock_detail_dj(request):
         print("이;겆",xy.shape, model.predict(X_test)[-1].reshape(1,4).shape)
         xy = np.append(xy, model.predict(X_test)[-1].reshape(1,4), axis=0)   # 예측된 맨 마지막 결과를 넣어서 이제부터 미래 예측
         for i in range(future_price):
-
             trainSet, testSet = MinMaxScaler(xy[0:-past]), MinMaxScaler(xy[-past-window:])  # past 가장 최근의 과거 일주일만 가지고 새로 학습
 
             X_train, y_train = buildDataSet(trainSet, window)
@@ -83,20 +84,22 @@ def stock_detail_dj(request):
             #model.fit(X_train, y_train)
 
             future_predicted_stock_price = model.predict(X_test)
-            #predicted_stock_price = back_MinMax(df.iloc[-past:,], predicted_stock_price)  # 여기서는 전체로 되돌려줌
+            print("이거", df.iloc[-past:,])
+            future_predicted_stock_price = back_MinMax(df.iloc[-past:,-1], future_predicted_stock_price)  # 여기서는 전체로 되돌려줌
 
             print("응", future_predicted_stock_price.shape)
             xy = np.append(xy, future_predicted_stock_price[-1].reshape(1,4), axis=0)   # 예측된 맨 마지막 결과를 넣어서 이제부터 미래 예측
 
-        df1 = pd.DataFrame(back_MinMax(df.iloc[-5:,-1], tmp_y_test)).reset_index(drop=True)
+        org_df1 = pd.DataFrame(back_MinMax(df.iloc[-5:,-1], tmp_y_test)).reset_index(drop=True)
         old = pd.DataFrame(predicted_stock_price)
         new = pd.DataFrame(xy[-future_price:, -1])
+        df1 = pd.concat([org_df1, new], axis=0).reset_index(drop=True)
         df2 = pd.concat([old, new], axis=0).reset_index(drop=True)
         df3 = pd.DataFrame(range(0, predicted_stock_price.shape[0] + future_price, 1)).reset_index(drop=True)
         df4 = pd.concat([df3, df1, df2], axis=1)
-        df4 = df4.fillna(0)
+        # df4 = df4.fillna(0)
         df = df4.values.tolist()
-        print("df가 어찌되는겨", df)
+        print("df가 어찌되는겨", df4)
         print("더해진 5개가 있나요?", xy.shape)
         ratio = -1
         it = 0
@@ -113,7 +116,4 @@ def stock_detail_dj(request):
         showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=1)
         showstock.index = [format(code, '06') for code in showstock.index]
         showstock = showstock.loc[word]
-        # .loc[word]
-        # showstock.loc['종목코드'] = format(showstock['종목코드'].copy(), '06')
-        print(showstock)
         return render(request, 'front/stock_detail_dj.html', {'showstock': showstock, 'df':df, 'ratio':ratio, 'it':it, 'dt':dt})
