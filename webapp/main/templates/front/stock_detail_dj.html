@@ -64,7 +64,7 @@
 
 <div class="site-section cta-big-image" id="about-section">
   <div class="container">
-    <div class="row mb-5">
+    <div class="row">
       <div class="col-12 text-center" data-aos="fade">
         <h2 class="section-title mb-3">Prediction of {{ showstock.0 }} Stock Price</h2>
       </div>
@@ -73,15 +73,15 @@
 </div>
 <div class="site-section cta-big-image" id="about-section">
   <div class="row">
-    <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
+    <div class="col-lg-4" style="vertical-align: top; margin-left: 70px;" data-aos="fade-up" data-aos-delay="">
       
-      <div id="chart_div" style="width: 650px; height: 400px"></div>
+      <div id="chart_div" style="width: 1100px; height: 700px"></div>
       <!-- <img src="{{i.picurl}}" alt="Image" class="img-fluid"> -->
       
     </div>
     <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
-      <div class="mb-4">
-        <h3 class="h3 mb-4 text-black">For the next great business</h3>
+      <div class="mb-1">
+        <h3 class="h3 mb-4 text-black">Prediction Result</h3>
 
         <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 70px; width: 540px;">
           <thead>
@@ -106,7 +106,15 @@
           
         </table>
         
-        
+        <div class="mb-4">
+          <p>Day 0 is reference(i.e, Today)</p>
+        <ul class="list-unstyled ul-check success">
+          <li>Best Invest Time - Day {{ it }} </li>
+          <li>Best Divest Time - Day {{ dt }} </li>
+        </ul>
+          <p><b>For an amount of Rs10000 investment you would be getting approx Rs{{ ratio }}</b></p>
+
+      </div>
         
         <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 70px; width: 540px;">
           {% comment %} <thead>
@@ -119,7 +127,7 @@
           </thead> {% endcomment %}
           <tbody>
             <tr style="vertical-align: center; text-align: center;">
-              <th>회사명</th>
+              <th style="width: 100px;">회사명</th>
               <td>{{ showstock.0 }}</td>
             <tr style="vertical-align: center; text-align: center;">
               <th>종목 코드</th>
@@ -161,20 +169,13 @@
             </div>
 
 
-            <div class="mb-4">
-                <p>Day 0 is reference(i.e, Today)</p>
-              <ul class="list-unstyled ul-check success">
-                <li>Best Invest Time - Day {{ it }} </li>
-                <li>Best Divest Time - Day {{ dt }} </li>
-              </ul>
-                <p><b>For an amount of Rs10000 investment you would be getting approx Rs{{ ratio }}</b></p>
-
-            </div>
+            
 
 
 
           </div>
         </div>
       </div>
+
 
 {% endblock %}
