@@ -7,6 +7,7 @@ import pandas as pd
 import os, glob
 from tensorflow.keras.models import model_from_json
 from sklearn.ensemble import RandomForestRegressor
+from pykrx import stock as pystock
 
 def MinMaxScaler(data):
     denom = np.max(data,0)-np.min(data,0)            # np.min(data,0) 이었는데 - 값이 있어서 0이 더 작은 값으로 되서 0으로 나누는 경우 에러
@@ -22,14 +23,15 @@ def stock(request):
     allstocks = []
     rootdir = os.path.join('webapp', 'media')
     allstocks =  glob.glob(f'{rootdir}/*/')
-    # allstocks = [company.split('/')[-2] for company in allstocks]
-    allstocks = [os.path.split(os.path.split(company)[0])[-1] for company in allstocks]
+    
+    allstocks = [f"{pystock.get_market_ticker_name(os.path.split(os.path.split(ticker_dir)[0])[-1])}-{os.path.split(os.path.split(ticker_dir)[0])[-1]}" for ticker_dir in allstocks]
     allstocks.sort()
     return render(request, 'front/stock.html', {'site': site, 'allstocks': allstocks})
 
 def stock_detail_dj(request):
     if request.method == 'POST':
-        word = request.POST.get('stockname')
+        word = request.POST.get('stockname').split('-')[-1]
+        print(word)
         predicted_stock_price = 0
 
         df = pd.read_csv('webapp/media/{}/{}.csv'.format(word, word), encoding='cp949')
@@ -87,7 +89,10 @@ def stock_detail_dj(request):
                     dt = j
         ratio=int(ratio*10000)
 
-        showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=0).loc[word]
-        showstock.loc['종목코드'] = format(showstock['종목코드'].copy(), '06')
+        showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=1)
+        showstock.index = [format(code, '06') for code in showstock.index]
+        showstock = showstock.loc[word]
+        # .loc[word]
+        # showstock.loc['종목코드'] = format(showstock['종목코드'].copy(), '06')
         print(showstock)
         return render(request, 'front/stock_detail_dj.html', {'showstock': showstock, 'df':df, 'ratio':ratio, 'it':it, 'dt':dt})
