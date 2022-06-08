@@ -5,6 +5,22 @@ import pandas as pd
 import os, glob
 from sklearn.ensemble import RandomForestRegressor
 from pykrx import stock as pystock
+from datetime import datetime, timedelta
+from pytz import timezone
+from .data_update import update_data
+import schedule, time
+
+
+def hi():
+    print("hihi")
+
+'''
+schedule.every(1).seconds.do(hi)
+while(True):
+    schedule.run_pending()
+    time.sleep(1)
+'''
+
 
 def MinMaxScaler(data):
     denom = np.max(data,0)-np.min(data,0)            # np.min(data,0) 이었는데 - 값이 있어서 0이 더 작은 값으로 되서 0으로 나누는 경우 에러
@@ -18,16 +34,20 @@ def back_MinMax(data,value):
     return back 
 
 def stock(request):
-    site = Main.objects.get(pk=2)
-    allstocks = []
-    rootdir = os.path.join('webapp', 'media')
-    allstocks =  glob.glob(f'{rootdir}/*/')
+    # allstocks = []
+    data_dir = os.path.join('webapp', 'media')
+    time_now = datetime.now(tz=timezone('Asia/Seoul'))
+    print(time_now)
+    
+    allstocks =  glob.glob(f'{data_dir}/*/')
     
     allstocks = [f"{pystock.get_market_ticker_name(os.path.split(os.path.split(ticker_dir)[0])[-1])}-{os.path.split(os.path.split(ticker_dir)[0])[-1]}" for ticker_dir in allstocks]
     allstocks.sort()
-    return render(request, 'front/stock.html', {'site': site, 'allstocks': allstocks})
+    return render(request, 'front/stock.html', {'allstocks': allstocks})
 
 def stock_detail_dj(request):
+    
+
     if request.method == 'POST':
         word = request.POST.get('stockname').split('-')[-1]
         print(word)
