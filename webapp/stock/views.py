@@ -8,18 +8,7 @@ from pykrx import stock as pystock
 from datetime import datetime, timedelta
 from pytz import timezone
 from .data_update import update_data
-import schedule, time
 
-
-def hi():
-    print("hihi")
-
-'''
-schedule.every(1).seconds.do(hi)
-while(True):
-    schedule.run_pending()
-    time.sleep(1)
-'''
 
 
 def MinMaxScaler(data):
