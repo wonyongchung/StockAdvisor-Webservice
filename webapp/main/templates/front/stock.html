@@ -18,26 +18,26 @@
 
 {% block mainblock %}
     <div class="site-section cta-big-image" id="about-section">
-      <div class="container">
+      <div class="container" style="width: 100%;height: 100vh;">
         <div class="row mb-5">
-          <div class="col-12 text-center" data-aos="fade" style="margin-top: 100px;">
+          <!-- <div class="col-12 text-center" data-aos="fade" style="margin-top: 20px;">
             <h2 class="section-title mb-3">Stock Price Predictions</h2>
-          </div>
+          </div> -->
         </div>
 
 
-        <div class="container">
+        <div class="container" style="background-color:#ffffff; width: 1500px; height: 420px; padding-top: 0px; padding-bottom: 10px;">
           <div class="row">
-          <div class="col-xs-6">
-            <h2 style="color:black; font-size: 20px; margin-top: 50px ;margin-left: 70px;">Stocks predicted to <span style="color:#FF0000">soar</span> in a month 
+          <div class="col-6">
+            <h2 style="color:black; font-size: 20px; margin-top: 20px ;margin-left: 70px;">Stocks predicted to <span style="color:#FF0000">soar</span> in a month 
               <span style="margin-left: 20px; font-size: 15px; color:#555555"><script>
               date = new Date().toLocaleDateString();
               document.write(date);
               </script></span>
               </h2>
           </div>
-          <div class="col-xs-6">
-            <h2 style="font-size: 20px; margin-top: 50px ;margin-left: 140px;">Stocks predicted to <span style="color:#0015ff">crash</span> in a month
+          <div class="col-6">
+            <h2 style="color:black; font-size: 20px; margin-top: 20px ;margin-left: 60px;">Stocks predicted to <span style="color:#0015ff">crash</span> in a month
             <span style="margin-left: 20px; font-size: 15px; color:#555555"><script>
               date = new Date().toLocaleDateString();
               document.write(date);
@@ -46,9 +46,9 @@
           </div>
           </div>
           
-          <div class="row">
+          <div class="row" >
             <div class="col-xs-6">
-              <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 70px; width: 540px;">
+              <table border="none" summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-left: 10px; margin-bottom: 30px; width: 540px; background-color: rgb(255, 255, 255);">
                 <thead>
                   <tr style="vertical-align: center; text-align: center;">
                     <th>Ranking</th>
@@ -62,7 +62,6 @@
                     <td>1</td>
                     <td>LG</td>
                     <td>
-                      <!-- <tr>45 <div class="triangle" style="vertical-align: baseline;"></div></tr> -->
                       45 <img class="triangle" style="vertical-align: baseline;"></img>
                       </td>
                     <td>31000</td>
@@ -96,7 +95,7 @@
               </table>
             </div>
             <div class="col-xs-6" style="margin-left: 30px;">
-              <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 50px; width: 540px;">
+              <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-left: 7px; margin-bottom: 30px; width: 540px; background-color: rgb(255, 255, 255);">
                 <thead>
                   <tr style="vertical-align: center; text-align: center;">
                     <th>Ranking</th>
@@ -149,7 +148,7 @@
 
         </div>
         <!-- <div class="row"> -->
-        <div class="col-12" style="margin-top: 100px; margin-bottom: 120px;">
+        <div class="col-12" style="margin-top: 170px; margin-bottom: 120px;">
           <a href="#stockpredict" class="mouse smoothscroll" >
             <span class="mouse-icon2">
               <span class="mouse-wheel2"></span>
