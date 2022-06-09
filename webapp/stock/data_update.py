@@ -3,7 +3,9 @@ from datetime import datetime, timedelta
 from pytz import timezone
 from pykrx import stock
 import glob, os
+from celery import shared_task
 
+@shared_task
 def update_data():
     time_now = datetime.now(tz=timezone('Asia/Seoul'))
     time_now_str = time_now.strftime(format='%Y%m%d')

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'stock',
     'contact',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CELERY_TIMEZONE = 'Asia/Seoul'
+CELERY_ENABLE_UTC=False
