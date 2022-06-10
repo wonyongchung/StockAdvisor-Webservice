@@ -506,7 +506,8 @@ input.btn {
     left: 0;
     top: -5px; }
   .site-navbar .site-navigation .site-menu {
-    margin-bottom: 0; }
+    margin-bottom: 0; 
+    }
     .site-navbar .site-navigation .site-menu .active {
       color: #000;
       display: inline-block;
@@ -761,7 +762,7 @@ input.btn {
     .sticky-wrapper .site-navbar .site-logo a {
       color: #fff; }
     .sticky-wrapper .site-navbar .site-menu > li > a {
-      color: rgba(255, 255, 255, 0.7) !important; }
+      color: #000 !important; }      /* 여기가 메뉴 색상 바꾸는데임 */
       .sticky-wrapper .site-navbar .site-menu > li > a:hover, .sticky-wrapper .site-navbar .site-menu > li > a.active {
         color: #fff !important; }
   .sticky-wrapper.is-sticky .site-navbar {

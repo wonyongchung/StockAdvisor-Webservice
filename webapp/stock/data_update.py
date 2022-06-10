@@ -13,7 +13,7 @@ def update_data():
     time_start = time_now - timedelta(days=365*5)       #5년전부터 가져오기
     time_start_str = time_start.strftime(format='%Y%m%d')
 
-    data_dir = os.path.join("webapp", 'media')
+    data_dir = os.path.join("..", 'media')
 
     print(f"{time_now_str} - Updating Stock Info...")
 
@@ -48,4 +48,3 @@ def update_data():
 
         data = stock.get_market_ohlcv_by_date(fromdate=time_start_str, todate=time_now_str, ticker=ticker)
         data.to_csv(f"{ticker_dir}/{ticker}.csv", encoding='cp949')
-        

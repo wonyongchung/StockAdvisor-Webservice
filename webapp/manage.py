@@ -2,7 +2,9 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from celery import shared_task
 
+@ㄴ
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webapp.settings')
     try:
