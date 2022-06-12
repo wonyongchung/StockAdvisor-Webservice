@@ -17,6 +17,7 @@
 {% endblock %}
 
 {% block mainblock %}
+
     <div class="site-section cta-big-image" id="about-section">
       <div class="container" style="width: 100%;height: 100vh;">
         <div class="row mb-5">
@@ -24,12 +25,12 @@
             <h2 class="section-title mb-3">Stock Price Predictions</h2>
           </div> -->
         </div>
+ 
 
-
-        <div class="container" style="background-color:#ffffff; width: 1500px; height: 420px; padding-top: 0px; padding-bottom: 10px;">
+        <div class="container" style="background-color:#00ff0000; width: 1500px; height: 420px; padding-top: 0px; padding-bottom: 10px;">
           <div class="row">
           <div class="col-6">
-            <h2 style="color:black; font-size: 20px; margin-top: 20px ;margin-left: 70px;">Stocks predicted to <span style="color:#FF0000">soar</span> in a month 
+            <h2 style="color:black; font-size: 20px; margin-top: 200px ;margin-left: 70px;">Stocks predicted to <span style="color:#FF0000">soar</span> in a month 
               <span style="margin-left: 20px; font-size: 15px; color:#555555"><script>
               date = new Date().toLocaleDateString();
               document.write(date);
@@ -37,7 +38,7 @@
               </h2>
           </div>
           <div class="col-6">
-            <h2 style="color:black; font-size: 20px; margin-top: 20px ;margin-left: 60px;">Stocks predicted to <span style="color:#0015ff">crash</span> in a month
+            <h2 style="color:black; font-size: 20px; margin-top: 200px ;margin-left: 60px;">Stocks predicted to <span style="color:#0015ff">crash</span> in a month
             <span style="margin-left: 20px; font-size: 15px; color:#555555"><script>
               date = new Date().toLocaleDateString();
               document.write(date);
@@ -48,7 +49,7 @@
           
           <div class="row" >
             <div class="col-xs-6">
-              <table border="none" summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-left: 10px; margin-bottom: 30px; width: 540px; background-color: rgb(255, 255, 255);">
+              <table border="none" summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-left: 12px; margin-bottom: 30px; width: 540px; background-color: rgb(255, 255, 255);">
                 <thead>
                   <tr style="vertical-align: center; text-align: center;">
                     <th>Ranking</th>
@@ -60,35 +61,35 @@
                 <tbody>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>1</td>
-                    <td>LG</td>
+                    <td>{{h1name}}</td>
                     <td>
-                      45 <img class="triangle" style="vertical-align: baseline;"></img>
+                      {{h1rate}} <img class="triangle" style="vertical-align: baseline;"></img>
                       </td>
-                    <td>31000</td>
+                    <td>{{h1price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>2</td>
-                    <td>삼성전자</td>
-                    <td>32 <img class="triangle" style="vertical-align: baseline;"></img></td>
-                    <td>81000</td>
+                    <td>{{h2name}}</td>
+                    <td>{{h2rate}} <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>{{h2price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>3</td>
-                    <td>현대자동차</td>
-                    <td>27 <img class="triangle" style="vertical-align: baseline;"></img></td>
-                    <td>160000</td>
+                    <td>{{h3name}}</td>
+                    <td>{{h3rate}} <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>{{h3price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>4</td>
-                    <td>SK하이닉스</td>
-                    <td>25 <img class="triangle" style="vertical-align: baseline;"></img></td>
-                    <td>91000</td>
+                    <td>{{h4name}}</td>
+                    <td>{{h4rate}} <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>{{h4price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>5</td>
-                    <td>카카오</td>
-                    <td>16 <img class="triangle" style="vertical-align: baseline;"></img></td>
-                    <td>110000</td>
+                    <td>{{h5name}}</td>
+                    <td>{{h5rate}} <img class="triangle" style="vertical-align: baseline;"></img></td>
+                    <td>{{h5price}}</td>
                   </tr>
                 </tbody>
                 
@@ -107,36 +108,36 @@
                 <tbody>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>1</td>
-                    <td>LG</td>
+                    <td>{{l1name}}</td>
                     <td>
                       <!-- <tr>45 <div class="triangle" style="vertical-align: baseline;"></div></tr> -->
-                      45 <img class="triangle-down" style="vertical-align: baseline;"></img>
+                      {{l1rate}} <img class="triangle-down" style="vertical-align: baseline;"></img>
                       </td>
-                    <td>31000</td>
+                    <td>{{l1price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>2</td>
-                    <td>삼성전자</td>
-                    <td>32 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
-                    <td>81000</td>
+                    <td>{{l2name}}</td>
+                    <td>{{l2rate}} <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>{{l2price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>3</td>
-                    <td>현대자동차</td>
-                    <td>27 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
-                    <td>160000</td>
+                    <td>{{l3name}}</td>
+                    <td>{{l3rate}} <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>{{l3price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>4</td>
-                    <td>SK하이닉스</td>
-                    <td>25 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
-                    <td>91000</td>
+                    <td>{{l4name}}</td>
+                    <td>{{l4rate}} <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>{{l4price}}</td>
                   </tr>
                   <tr style="vertical-align: center; text-align: center;">
                     <td>5</td>
-                    <td>카카오</td>
-                    <td>16 <img class="triangle-down" style="vertical-align: baseline;"></img></td>
-                    <td>110000</td>
+                    <td>{{l5name}}</td>
+                    <td>{{l5rate}} <img class="triangle-down" style="vertical-align: baseline;"></img></td>
+                    <td>{{l5price}}</td>
                   </tr>
                 </tbody>
                 
@@ -148,7 +149,7 @@
 
         </div>
         <!-- <div class="row"> -->
-        <div class="col-12" style="margin-top: 170px; margin-bottom: 120px;">
+        <div class="col-12" style="margin-left: 15px; margin-top: 380px; margin-bottom: 120px;">
           <a href="#stockpredict" class="mouse smoothscroll" >
             <span class="mouse-icon2">
               <span class="mouse-wheel2"></span>
@@ -160,7 +161,7 @@
 
         
         <div class="row" id="stockpredict">
-          <div class="col-lg-3 mb-5" style="margin-top: 80px" data-aos="fade-up" data-aos-delay="">
+          <div class="col-lg-3 mb-5" style="margin-top: 150px" data-aos="fade-up" data-aos-delay="">
             <!-- TradingView Widget BEGIN -->
 <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
@@ -189,7 +190,7 @@
   </script>
 </div>
           </div>
-          <div class="col-lg-5 ml-auto" style="margin-top: 80px;" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-5 ml-auto" style="margin-top: 120px;" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-4">
               <ul class="list-unstyled ul-check success">              
               

@@ -8,6 +8,7 @@ from pykrx import stock as pystock
 from datetime import datetime, timedelta
 from pytz import timezone
 from .data_update import update_data
+import random
 
 
 
@@ -22,6 +23,10 @@ def back_MinMax(data,value):
     back = value * diff + np.min(data,0)
     return back 
 
+def home(request):
+    rand = random.random()
+    return render(request, 'front/home.html', {'rand':rand})
+
 def stock(request):
     # allstocks = []
     data_dir = os.path.join('webapp', 'media')
@@ -31,8 +36,59 @@ def stock(request):
     allstocks =  glob.glob(f'{data_dir}/*/')
     
     allstocks = [f"{pystock.get_market_ticker_name(os.path.split(os.path.split(ticker_dir)[0])[-1])}-{os.path.split(os.path.split(ticker_dir)[0])[-1]}" for ticker_dir in allstocks]
-    allstocks.sort()
-    return render(request, 'front/stock.html', {'allstocks': allstocks})
+    #allstocks.sort()
+    monthafter = "webapp/media/predict.csv"
+    monthafterdata = pd.read_csv(monthafter).iloc[29,:]
+    # print(monthafterdata[0])
+    monthrate = []
+    nowlist = []
+    route = "webapp/media/"
+    for stock in allstocks:
+        print(stock)
+        namelist = stock.split("-")
+        num = namelist[-1]
+        name = "".join(namelist[:-1])
+        temproute = route+num+"/"+num+".csv"
+        temp = pd.read_csv(temproute, encoding='cp949')
+        nowlist.append([temp["종가"][len(temp)-1], name, num])
+        
+    for idx,now in enumerate(nowlist):
+        monthrate.append([round(100*(monthafterdata[idx]-now[0])/now[0],1), now[1], now[0]])
+    monthrate.sort()
+    lowfive = monthrate[:5]
+    highfive = monthrate[-5:]
+    
+    return render(request, 'front/stock.html', {'allstocks': allstocks,
+                                                'h1name': highfive[-1][1],
+                                               'h1rate':highfive[-1][0],
+                                                'h1price':highfive[-1][2],
+                                                'h2name': highfive[-2][1],
+                                               'h2rate':highfive[-2][0],
+                                                'h2price':highfive[-2][2],
+                                                'h3name': highfive[-3][1],
+                                               'h3rate':highfive[-3][0],
+                                                'h3price':highfive[-3][2],
+                                                'h4name': highfive[-4][1],
+                                               'h4rate':highfive[-4][0],
+                                                'h4price':highfive[-4][2],
+                                                'h5name': highfive[-5][1],
+                                               'h5rate':highfive[-5][0],
+                                                'h5price':highfive[-5][2],
+                                                'l1name': lowfive[0][1],
+                                               'l1rate':lowfive[0][0],
+                                                'l1price':lowfive[0][2],
+                                                'l2name': lowfive[1][1],
+                                               'l2rate':lowfive[1][0],
+                                                'l2price':lowfive[1][2],
+                                                'l3name': lowfive[2][1],
+                                               'l3rate':lowfive[2][0],
+                                                'l3price':lowfive[2][2],
+                                                'l4name': lowfive[3][1],
+                                               'l4rate':lowfive[3][0],
+                                                'l4price':lowfive[3][2],
+                                                'l5name': lowfive[4][1],
+                                               'l5rate':lowfive[4][0],
+                                                'l5price':lowfive[4][2]})
 
 def stock_detail_dj(request):
     
