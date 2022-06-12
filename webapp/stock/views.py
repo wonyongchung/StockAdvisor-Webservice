@@ -10,8 +10,6 @@ from pytz import timezone
 from .data_update import update_data
 import random
 
-
-
 def MinMaxScaler(data):
     denom = np.max(data,0)-np.min(data,0)            # np.min(data,0) 이었는데 - 값이 있어서 0이 더 작은 값으로 되서 0으로 나누는 경우 에러
     nume = data-np.min(data,0)
