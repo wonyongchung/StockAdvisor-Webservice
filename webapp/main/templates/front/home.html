@@ -10,7 +10,7 @@
 
     {% block mainblock %}
     
-    {% if rand1 == 1 %}
+    {% if rand1 == 0 %}
     
       <div class="site-blocks-cover overlay" style="background-image: url({% static 'front/images/newyork.jpg' %});" data-aos="fade" id="home-section">
         <div class="container">
@@ -36,7 +36,7 @@
       <script language="JavaScript">
         document.write(rand1);
         </script>
-    {% elif rand1 == 0 %}
+    {% elif rand1 == 1 %}
     
           <div class="site-blocks-cover overlay" style="background-image: url({% static 'front/images/newyork2.jpg' %});" data-aos="fade" id="home-section">
             <div class="container">
