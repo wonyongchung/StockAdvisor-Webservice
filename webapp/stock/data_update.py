@@ -7,13 +7,15 @@ from celery import shared_task
 
 @shared_task
 def update_data():
+    
     time_now = datetime.now(tz=timezone('Asia/Seoul'))
     time_now_str = time_now.strftime(format='%Y%m%d')
     # ticker_list = stock.get_market_ticker_list(date=time_now, market='KOSPI')
     time_start = time_now - timedelta(days=365*5)       #5년전부터 가져오기
     time_start_str = time_start.strftime(format='%Y%m%d')
 
-    data_dir = os.path.join("..", 'media')
+    # data_dir = os.path.join("webapp", 'media')
+    data_dir = os.path.join('media')
 
     print(f"{time_now_str} - Updating Stock Info...")
 

@@ -4,7 +4,7 @@ import os
 import sys
 from celery import shared_task
 
-@ㄴ
+@shared_task
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webapp.settings')
     try:

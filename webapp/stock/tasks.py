@@ -1,4 +1,4 @@
-import os
+'''import os
 from celery import Celery
 import time
 import random
@@ -25,3 +25,4 @@ def working( id=1 ):
     
     return  f"{id}번째, 일을 끝냈다."
 
+'''

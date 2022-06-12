@@ -1,9 +1,10 @@
+from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
 from celery import shared_task
 from celery.schedules import crontab
-import time
-import random
+# import time
+# import random
 
 # Celery 모듈을 위한 Django 기본세팅
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webapp.settings')
@@ -16,11 +17,12 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
     'every-15-second': {
-        'task': 'core.tasks.say_hello',
-        'schedule': 15,
-#        'args': (,)
-    }
+        'task': 'stock.data_update.update_data',
+        'schedule': 15.0,
+        'args': ()
+    },
 }
+app.conf.timezone = "Asia/Seoul"
 
 # Django 에 등록된 모든 task 모듈을 로드합니다.
 app.autodiscover_tasks()
@@ -36,4 +38,3 @@ def debug_task(self):
 #     time.sleep(random.randint(1,5))
     
 #     return  f"{id}번째, 일을 끝냈다."
-
