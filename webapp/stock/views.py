@@ -8,18 +8,8 @@ from pykrx import stock as pystock
 from datetime import datetime, timedelta
 from pytz import timezone
 from .data_update import update_data
+from sklearn.preprocessing import StandardScaler
 import random
-
-def MinMaxScaler(data):
-    denom = np.max(data,0)-np.min(data,0)            # np.min(data,0) 이었는데 - 값이 있어서 0이 더 작은 값으로 되서 0으로 나누는 경우 에러
-    nume = data-np.min(data,0)
-    return nume/denom
-
-# 정규화 되돌리기 함수 
-def back_MinMax(data,value):
-    diff = np.max(data,0)-np.min(data,0)
-    back = value * diff + np.min(data,0)
-    return back 
 
 def home(request):
     rand = random.random()

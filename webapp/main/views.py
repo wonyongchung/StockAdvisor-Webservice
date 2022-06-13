@@ -1,15 +1,9 @@
 from django.shortcuts import render
 from main.models import Main
 import random
-from datetime import datetime
 
 def home(request):
-    now = datetime.now()
-    print("현재 : ", now.hour)
-    if now.hour >= 6 and now.hour <= 18:
-        rand1 = 0
-    else:
-        rand1 = 1
+    rand1 = random.randint(0,6)
     print(rand1)
     return render(request, 'front/home.html', {'rand1': rand1})
 
