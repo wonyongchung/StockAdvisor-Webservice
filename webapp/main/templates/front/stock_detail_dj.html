@@ -84,7 +84,7 @@
         <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 70px; width: 540px;">
           <thead>
             <tr style="vertical-align: center; text-align: center;">
-              <th>Ranking</th>
+
               <th>Company</th>
               <th>Surge Rate <span style="font-size: 12px;">(%)</span> </th>
               <th>Current price <span style="font-size: 12px;">(KRW)</span></th>
@@ -92,13 +92,13 @@
           </thead>
           <tbody>
             <tr style="vertical-align: center; text-align: center;">
-              <td>1</td>
-              <td>LG</td>
+
+              <td>{{showstock.0}}</td>
               <td>
                 <!-- <tr>45 <div class="triangle" style="vertical-align: baseline;"></div></tr> -->
-                45 <img class="triangle" style="vertical-align: baseline;"></img>
+                {{surgerate}} {% if triangle == 1 %}<img class="triangle" style="vertical-align: baseline;"></img> {%else%}<img class="triangle-down" style="vertical-align: baseline;"></img>{%endif%}
                 </td>
-              <td>31000</td>
+              <td>{{currentprice}}</td>
             </tr>
           </tbody>
           
