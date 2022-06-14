@@ -125,3 +125,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CELERY_BROKER_URL = 'amqp://guest@localhost:5672//'
+CELERY_TIMEZONE = 'Asia/Seoul'
+CELERY_ENABLE_UTC=False

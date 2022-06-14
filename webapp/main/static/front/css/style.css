@@ -506,7 +506,8 @@ input.btn {
     left: 0;
     top: -5px; }
   .site-navbar .site-navigation .site-menu {
-    margin-bottom: 0; }
+    margin-bottom: 0; 
+    }
     .site-navbar .site-navigation .site-menu .active {
       color: #000;
       display: inline-block;
@@ -761,7 +762,9 @@ input.btn {
     .sticky-wrapper .site-navbar .site-logo a {
       color: #fff; }
     .sticky-wrapper .site-navbar .site-menu > li > a {
+
       color:black !important; }
+
       .sticky-wrapper .site-navbar .site-menu > li > a:hover, .sticky-wrapper .site-navbar .site-menu > li > a.active {
         color: #dc143c !important; }
   .sticky-wrapper.is-sticky .site-navbar {

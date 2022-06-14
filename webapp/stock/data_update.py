@@ -3,15 +3,19 @@ from datetime import datetime, timedelta
 from pytz import timezone
 from pykrx import stock
 import glob, os
+from celery import shared_task
 
+@shared_task
 def update_data():
+    
     time_now = datetime.now(tz=timezone('Asia/Seoul'))
     time_now_str = time_now.strftime(format='%Y%m%d')
     # ticker_list = stock.get_market_ticker_list(date=time_now, market='KOSPI')
     time_start = time_now - timedelta(days=365*5)       #5년전부터 가져오기
     time_start_str = time_start.strftime(format='%Y%m%d')
 
-    data_dir = os.path.join("webapp", 'media')
+    # data_dir = os.path.join("webapp", 'media')
+    data_dir = os.path.join('media')
 
     print(f"{time_now_str} - Updating Stock Info...")
 
@@ -28,7 +32,7 @@ def update_data():
                 '035420','035720','036570','051900','051910','055550','066570',
                 '068270','086790','090430','096770','105560','207940','259960',
                 '302440','316140','323410','329180','352820','361610','373220','377300']
-
+    
     # market_cap = market_cap[:50]
     # ticker로 5년간 데이터 불러오기
 
@@ -46,4 +50,3 @@ def update_data():
 
         data = stock.get_market_ohlcv_by_date(fromdate=time_start_str, todate=time_now_str, ticker=ticker)
         data.to_csv(f"{ticker_dir}/{ticker}.csv", encoding='cp949')
-        
