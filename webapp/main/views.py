@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from main.models import Main
-
+import random
 
 def home(request):
-
-    site = Main.objects.get(pk=2)
-    print(site)
-    return render(request, 'front/home.html', {'site': site})
+    rand1 = random.randint(0,6)
+    print(rand1)
+    return render(request, 'front/home.html', {'rand1': rand1})
 
 
 def consult(request):
