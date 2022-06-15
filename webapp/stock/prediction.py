@@ -55,7 +55,7 @@ model = Sequential([
            activation="relu",
            input_shape=[WINDOW_SIZE, 1]),
     # LSTM
-    LSTM(16, activation='tanh'),
+    LSTM(16, activation='softsign'),
     Dense(16, activation="relu"),
     Dense(1),
 ])
