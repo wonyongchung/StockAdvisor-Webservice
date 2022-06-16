@@ -124,7 +124,7 @@ def update_data():
 
     total = pd.DataFrame(total).transpose()
     #total = total.astype(int)
-    total.to_csv(f"{data_dir}/predict.csv", encoding='cp949', header=False, index=False)
+    total.to_csv(f"{data_dir}/predict.csv", encoding='cp949', header=market_cap, index=False)
 
 if __name__=="__main__":
     update_data()

@@ -7,6 +7,7 @@ from pykrx import stock as pystock
 from datetime import datetime, timedelta
 from pytz import timezone
 import random
+from sklearn.ensemble import RandomForestRegressor
 
 def home(request):
     rand = random.random()
@@ -75,13 +76,49 @@ def stock(request):
                                                'l5rate':lowfive[4][0],
                                                 'l5price':lowfive[4][2]})
 
+def MinMaxScaler(data):
+    denom = np.max(data,0)-np.min(data,0)            # np.min(data,0) 이었는데 - 값이 있어서 0이 더 작은 값으로 되서 0으로 나누는 경우 에러
+    nume = data-np.min(data,0)
+    return nume/denom
+
+# 정규화 되돌리기 함수 
+def back_MinMax(data,value):
+    diff = np.max(data,0)-np.min(data,0)
+    back = value * diff + np.min(data,0)
+    return back 
+
 def stock_detail_dj(request):
     if request.method == 'POST':
         word = request.POST.get('stockname').split('-')[-1]
-
         quantity = request.POST.get('quantity')
-        # print(quantity)
+        print(quantity)
         df = pd.read_csv('webapp/media/{}/{}.csv'.format(word, word), encoding='cp949')
+
+        xy = df.iloc[:,-2].values   # 종가만 가져다가 예측
+
+        window, future_price  = 90, 30  
+        train_size = int(len(xy)) - window
+        trainSet = MinMaxScaler(xy) # past 가장 최근의 과거 일주일만 보여줌
+
+        def buildDataSet(data, window):
+            xdata, ydata = [], []
+            for i in range(0, len(data) - window):
+                xdata.append(data[i:i + window])                           # 행은 10개씩, 열은 직전의 Number 값들도 같이 입력변수로 넣어준다
+                ydata.append(data[i + window])                   # 행은 그 다음 행 하나랑, 열은 모든 feature
+            return np.array(xdata), np.array(ydata)
+
+        X_train, y_train=buildDataSet(trainSet, window)
+
+        # RF는 2차원 데이터를 입력으로 받아서 1차원으로 바꿔줘야한다.
+        X_train = X_train.reshape(X_train.shape[0],window)
+
+        model = RandomForestRegressor()
+        model.fit(X_train,y_train)   # 예측할 때는 맨 마지막 종가 예측 결과만 출력해준다
+
+        predicted_stock_price = model.predict(X_train[-7:])  # 과거 7일 어치 예측
+        past = back_MinMax(df.iloc[train_size-window:,-2], predicted_stock_price)
+        past = np.reshape(past, (-1,))
+
         currentprice = df["종가"][len(df)-1]
         predictprice = pd.read_csv('webapp/media/predict.csv')
         # print(predictprice)
@@ -90,10 +127,20 @@ def stock_detail_dj(request):
         predictprice = predictprice.iloc[int(quantity)]
         
         past_real = df["종가"][-7:]
-        #future = pd.read_csv('webapp/media/predict.csv').iloc[:int(quantity)]
-        df3 = pd.DataFrame(range(0, 20, 1))
-        df4 = pd.concat([df3, past_real], axis=1)
-        df = past_real.values.tolist()
+        print(past_real.shape)
+        future = pd.read_csv('webapp/media/predict.csv')[word].iloc[:int(quantity)]
+        print(future.shape)
+        past_tong = pd.concat([past_real, future], axis = 0).reset_index(drop=True)
+        print("과거 합쳐", past_tong.shape)
+        past_predict = pd.DataFrame(past)
+        print("얘가 이상한", past_predict.shape)
+        future_tong = pd.concat([past_predict, future], axis = 0).reset_index(drop=True)
+        print("미래 합쳐", future_tong.shape)
+        df3 = pd.DataFrame(range(0, future_tong.shape[0], 1)).reset_index(drop=True)
+        print("날짜", df3.shape)
+        df4 = pd.concat([df3, past_tong, future_tong], axis=1)
+        print(df4.shape)
+        df = df4.values.tolist()
 
         # print(predictprice)
         surgerate = round(100*((predictprice-currentprice)/currentprice),2)
