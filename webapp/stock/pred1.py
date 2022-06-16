@@ -169,7 +169,6 @@ real = data["종가"].to_numpy()
 real = scaler.inverse_transform(real.reshape(-1,1))[:,0]
 
 
-plt.figure(figsize=(20,5))
 plt.plot(range(0,len(data)),real[:], label="real")
 plt.plot(range(len(data)-30,len(data)),result, label="predict") # len(data)-7,len(data)
 plt.legend()
@@ -194,8 +193,8 @@ ma_data.insert(len(ma_data.columns), "MA100", ma100)
 ma_data_30 = []
 ma_data_100 = []
 for i in range(0, 30):
-    a = (ma_data['MA30'].iloc[119+i] + result[i]) / 2
-    b = (ma_data['MA100'].iloc[119+i] + result[i]) / 2
+    a = 0.3 * ma_data['MA30'].iloc[119+i] + 0.7 * result[i]
+    b = 0.3 * ma_data['MA100'].iloc[119+i] + 0.7 * result[i]
     ma_data_30.append(a)
     ma_data_100.append(b)
     
@@ -208,7 +207,11 @@ plt.show()
 
 data_30 = ma_data['날짜'][:30]
 
-plt.plot(data_30, ma_data_30, label = 'tma_30')
-plt.plot(data_30, ma_data_100, label = 'tma_100')
+plt.plot(range(0,len(data)),real[:], label="real")
+plt.plot(range(len(data)-30,len(data)),result, label="predict")
+plt.plot(ma_data.index, ma_data['MA30'], label="MA30")
+plt.plot(ma_data.index, ma_data['MA100'], label="MA100")
+plt.plot(range(len(data)-30,len(data)), ma_data_30, label = 'tma_30')
+plt.plot(range(len(data)-30,len(data)), ma_data_100, label = 'tma_100')
 plt.legend()
 plt.show()
