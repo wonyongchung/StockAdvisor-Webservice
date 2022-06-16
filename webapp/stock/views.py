@@ -189,8 +189,21 @@ def stock_detail_dj(request):
         else:
             opinion = 0
         ratio = 0
-        it = 0
-        dt = 0
+        
+        predictprice = pd.read_csv('webapp/media/predict.csv')[word][:30]
+        minimumrange = 0
+        for i in range(30):
+            for j in range(i, 30):
+                if predictprice[j]/predictprice[i]>minimumrange:
+                    it = i
+                    dt = j
+                    minimumrange = predictprice[j]/predictprice[i]
+        # print(predictprice)
+        # print(it, dt)
+        
+        it+=1
+        dt+=1
+        
         showstock = pd.read_csv(os.path.join(os.getcwd(), "webapp", "media", "상장법인목록.csv"), encoding='cp949', index_col=1)
         showstock.index = [format(code, '06') for code in showstock.index]
         showstock = showstock.loc[word]

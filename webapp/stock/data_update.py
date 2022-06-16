@@ -50,3 +50,4 @@ def update_data():
 
         data = stock.get_market_ohlcv_by_date(fromdate=time_start_str, todate=time_now_str, ticker=ticker)
         data.to_csv(f"{ticker_dir}/{ticker}.csv", encoding='cp949')
+    

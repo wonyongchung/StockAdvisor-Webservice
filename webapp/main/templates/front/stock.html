@@ -189,7 +189,12 @@
   );
   </script>
 </div>
+
           </div>
+          
+
+
+
           <div class="col-lg-5 ml-auto" style="margin-top: 120px;" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-4">
               <ul class="list-unstyled ul-check success">              
@@ -213,7 +218,7 @@
     
                 <!--   수량   -->
                     <div id="mainDiv" style="display: flex; align-items: center; margin-bottom:25px; margin-top:20px; font-size:16px;color:#555555;">
-                      Select predict period <input type="number" name="quantity" style="width:70px; margin-left:50px;" value="30" max = "100" min="1" id="numberPlace" class="form-control qty-input text-center">
+                      Select predict period <input type="number" name="quantity" style="width:70px; margin-left:50px;" value="30" max = "30" min="1" id="numberPlace" class="form-control qty-input text-center">
                     </div>
                 <!--   수량  끝 -->
     
@@ -242,9 +247,26 @@
 
           </div>
         </div>
+        <!-- <div class="col-12" style="margin-left: 15px; margin-top: 200px; margin-bottom: 100px;">
+          <a href="#stockpredict" class="mouse smoothscroll" >
+            <span class="mouse-icon2">
+              <span class="mouse-wheel2"></span>
+            </span>
+          </a>
+          <!-- <p style="color: black; font-size: 20px; text-align: center; margin-left: 530px; margin-bottom: 100px;">Go Down 예쁘게 업데이트해야함</hp> -->
+          <!-- <p style="color: black; font-size: 20px; text-align:center; margin-bottom: 100px;">Go Down 예쁘게 업데이트됨</hp> -->
+        </div>
+
+        <div class="col-md-6" style="float: none; margin:0 auto; margin-top: 350px;" data-aos="fade-up">
+          <figure class="row" style ="text-align: center;">
+          <img src="{% static 'front/images/wordcloud.png' %}" alt="Image"  style="text-align: center;">
+          
+          </figure>
+        </div> 
+        
       </div>
     </div>
-    <div style="height: 500px;">
+    <div style="height: 100px;">
 
     </div>
 {% endblock %}
