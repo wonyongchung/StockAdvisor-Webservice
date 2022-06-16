@@ -51,9 +51,6 @@ def update_data():
     # ticker로 5년간 데이터 불러오기
 
     for ticker in market_cap:
-        
-        # ticker_name = stock.get_market_ticker_name(ticker)
-        # ticker_name = market_cap.loc[ticker, '종목이름']
         ticker_dir = os.path.join(data_dir , f"{ticker}")
         # print(ticker)
         
@@ -66,9 +63,9 @@ def update_data():
         data.to_csv(f"{ticker_dir}/{ticker}.csv", encoding='cp949')
 
 
-
     for media in market_cap:
-        data = pd.read_csv(os.path.join(market_cap), encoding='cp949')
+        media_dir = os.path.join(data_dir , f"{media}")
+        data = pd.read_csv(f"{media_dir}/{media}.csv", encoding='cp949')
         
         scaler = MinMaxScaler()
         data['종가'] = scaler.fit_transform(data['종가'].to_numpy().reshape(-1, 1))
@@ -216,7 +213,7 @@ def update_data():
         real = data["종가"].to_numpy()
         real = scaler.inverse_transform(real.reshape(-1,1))[:,0]
     
-        ma_data = pd.read_csv(os.path.join(media), encoding='cp949')
+        ma_data = pd.read_csv('./{}/{}'.format(media, media), encoding='cp949')
         ma30 = ma_data['종가'].rolling(window=100).mean()
         ma_data.insert(len(ma_data.columns), "MA100", ma30)
         ma_data_30 = []
@@ -224,4 +221,7 @@ def update_data():
             a = 0.3 * ma_data['MA30'].iloc[119+i] + 0.7 * result[i]
             ma_data_30.append(a)
 
-        ma_data_30.to_csv(, encoding='cp949')
+        ma_data_30.to_csv(f"{media_dir}/predict.csv", encoding='cp949')
+
+if __name__=="__main__":
+    update_data()
