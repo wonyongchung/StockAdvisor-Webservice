@@ -63,9 +63,9 @@
 <div class="site-section cta-big-image" id="about-section">
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center" data-aos="fade">
+      <!-- <div class="col-12 text-center" data-aos="fade">
         <h2 class="section-title mb-3">Prediction of {{ showstock.0 }} Stock Price</h2>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -78,14 +78,14 @@
     </div>
     <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
       <div class="mb-1">
-        <h3 class="h3 mb-4 text-black">Prediction Result</h3>
+        <!-- <h3 class="h3 mb-4 text-black">Prediction Result</h3> -->
 
         <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive" style="margin-bottom: 70px; width: 540px;">
           <thead>
             <tr style="vertical-align: center; text-align: center;">
 
               <th>Company</th>
-              <th>Surge Rate <span style="font-size: 12px;">(%)</span> </th>
+              <th>Predicted Surge Rate <span style="font-size: 12px;">(%)</span> </th>
               <th>Current price <span style="font-size: 12px;">(KRW)</span></th>
             </tr>
           </thead>
@@ -109,7 +109,18 @@
           <li>Best Invest Time - Day {{ it }} </li>
           <li>Best Divest Time - Day {{ dt }} </li>
         </ul>
-          <p><b>For an amount of Rs10000 investment you would be getting approx Rs{{ ratio }}</b></p>
+        {% if opinion == 3 %}
+        <p style="font-size: 25px;"><b>Investment Opinion: <span style="color: red;">BUY</span></b></p>
+        {%elif opinion == 2 %}
+        <p style="font-size: 25px;"><b>Investment Opinion: <span style="color: rgb(0, 0, 0);">HOLD</span></b></p>
+        {%elif opinion == 4 %}
+        <p style="font-size: 25px;"><b>Investment Opinion: <span style="color: rgb(255, 0, 0);">STRONG BUY</span></b></p>
+        {%elif opinion == 0 %}
+        <p style="font-size: 25px;"><b>Investment Opinion: <span style="color: rgb(55, 0, 255);">STRONG SELL</span></b></p>
+        {%else%}
+        <p style="font-size: 25px;"><b>Investment Opinion: <span style="color: rgb(47, 0, 255);">SELL</span></b></p>
+        {%endif%}
+          <!-- <p style="font-size: 25px;"><b>Investment Opinion: {% if opinion == 2 %} BUY {%elif opinion == 1 %} HOLD {%else%} SELL {%endif%}</b></p> -->
 
       </div>
         

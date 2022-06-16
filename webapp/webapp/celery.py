@@ -18,7 +18,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.beat_schedule = {
     'every-15-second': {
         'task': 'stock.data_update.update_data',
-        'schedule': 15.0,
+        'schedule': 120,
         'args': ()
     },
 }
