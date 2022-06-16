@@ -16,7 +16,7 @@ app = Celery('webapp', broker='amqp://guest@localhost:5672//')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
-    'every-15-second': {
+    'every-120-second': {
         'task': 'stock.data_update.update_data',
         'schedule': 120,
         'args': ()
