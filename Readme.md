@@ -2,6 +2,10 @@
 - 강성우 김동준 노윤아 이준석 정원용
 - Korea University
 
+# 서버 모식도  
+<p align="center"><img src="./서버구조도.png"></p>  
+<p align="center"><img src="./서버구조도_현재.jpg"></p>
+
 
 # 비동기 작업 실행 방법
 
@@ -40,5 +44,5 @@
 - https://devlog.jwgo.kr/2019/07/02/using-celery-with-django-2/
 - https://lucky516.tistory.com/18
 - https://kimdoky.github.io/tech/2019/01/23/celery-rabbitmq-tuto/
-# 참고 단어 : celery, rabbitmq, django-beat
+## 참고 단어 : celery, rabbitmq, django-beat
 
