@@ -25,7 +25,11 @@ SECRET_KEY = 'e7s+*fg@po76%s@0hk!5l1$8v6)dpxxa=y5^e0vfl2($0ys#4u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '44.206.153.70',
+    '.stockpredict.co.kr',
+    '127.0.0.1'
+]
 
 
 # Application definition
