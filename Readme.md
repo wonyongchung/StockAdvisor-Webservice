@@ -3,7 +3,7 @@
 - Korea University
 
 # 서버 모식도  
-<p align="center"><img src="./서버구조도.png"></p>  
+<p align="center"><img src="./서버구조도.PNG"></p>  
 <p align="center"><img src="./서버구조도_현재.jpg"></p>
 
 
